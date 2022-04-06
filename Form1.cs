@@ -20,11 +20,13 @@ namespace RunMinecraftSv
             string JarName = textBox2.Text;
             string Args = txtArgs.Text;
             serverProcess.StartInfo.UseShellExecute = false;
+            serverProcess.StartInfo.RedirectStandardOutput = true;
             serverProcess.StartInfo.FileName = "java.exe";
             serverProcess.StartInfo.WorkingDirectory = path;
-            serverProcess.StartInfo.Arguments = "-jar " + Args + " " + JarName;
+            serverProcess.StartInfo.Arguments = "-jar " + Args + " " + JarName + " nogui";
             serverProcess.StartInfo.CreateNoWindow = true;
-           
+            serverProcess.OutputDataReceived += new DataReceivedEventHandler(outputHandler);
+
             using (StreamWriter writer = new StreamWriter(path + "\\eula.txt", false))
             {
                 writer.Write("eula=true");
@@ -32,8 +34,41 @@ namespace RunMinecraftSv
             }
 
             serverProcess.Start();
+            serverProcess.BeginOutputReadLine();
             isRunning = true;
-        } 
+
+        }
+
+        private void outputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            string received = outLine.Data;
+            if (!string.IsNullOrEmpty(received))
+            {
+                setTextToTextBox(textBox4, received);
+            }            
+        }
+
+        delegate void CallBackTextbox(TextBox tb, string texto);
+
+        private void setTextToTextBox(TextBox tb, string texto)
+        {
+            try
+            {
+                if (tb.InvokeRequired)
+                {
+                    CallBackTextbox ctb = new CallBackTextbox(setTextToTextBox);
+                    this.Invoke(ctb, new object[] { tb, texto });
+                }
+                else
+                {
+                    tb.AppendText(texto + Environment.NewLine);
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -58,6 +93,7 @@ namespace RunMinecraftSv
                     localByName[localByName.Length - 1].Kill();
                     isRunning = false;
                     textBox3.Text = "Stopped";
+                    textBox4.Clear();
                 }
                 catch (Exception ex)
                 {
@@ -144,6 +180,11 @@ namespace RunMinecraftSv
                 btnSvFolder.Enabled = false;
             }
             Process.Start("explorer.exe", textBox1.Text);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

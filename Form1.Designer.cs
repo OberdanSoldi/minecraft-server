@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm));
             this.button1 = new System.Windows.Forms.Button();
             this.btnKill = new System.Windows.Forms.Button();
@@ -43,6 +44,8 @@
             this.txtArgs = new System.Windows.Forms.TextBox();
             this.useCustomArgs = new System.Windows.Forms.CheckBox();
             this.btnSvFolder = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // button1
@@ -134,7 +137,7 @@
             this.textBox3.Location = new System.Drawing.Point(95, 56);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 16);
+            this.textBox3.Size = new System.Drawing.Size(72, 16);
             this.textBox3.TabIndex = 9;
             this.textBox3.Text = "Stopped";
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -171,11 +174,29 @@
             this.btnSvFolder.UseVisualStyleBackColor = true;
             this.btnSvFolder.Click += new System.EventHandler(this.btnSvFolder_Click);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(12, 216);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox4.Size = new System.Drawing.Size(542, 301);
+            this.textBox4.TabIndex = 14;
+            this.textBox4.WordWrap = false;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Frm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 218);
+            this.ClientSize = new System.Drawing.Size(566, 527);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.btnSvFolder);
             this.Controls.Add(this.useCustomArgs);
             this.Controls.Add(this.txtArgs);
@@ -212,5 +233,7 @@
         private TextBox txtArgs;
         private CheckBox useCustomArgs;
         private Button btnSvFolder;
+        private TextBox textBox4;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }
